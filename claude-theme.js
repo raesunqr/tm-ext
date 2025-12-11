@@ -2,118 +2,157 @@
 (function() {
   'use strict';
   
-  // 创建样式元素
   const style = document.createElement('style');
   style.id = 'claude-theme-extension';
   
   style.textContent = `
     /* ===== 全局字体 ===== */
     * {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+      font-family: "optimistic_displayregular", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      letter-spacing: -0.01em !important;
     }
     
-    /* ===== 主色调：Claude的暖橙色 ===== */
+    /* ===== Claude 配色变量 ===== */
     :root {
       --claude-orange: #CC7852;
-      --claude-orange-light: #E89B7A;
-      --claude-orange-dark: #B86B47;
-      --claude-bg: #F5F5F0;
-      --claude-sidebar: #FFFFFF;
-      --claude-text: #2C2C2C;
-      --claude-text-light: #666666;
+      --claude-bg-main: #F5F5F0;
+      --claude-bg-sidebar: #FFFFFF;
+      --claude-text: #2C2823;
+      --claude-text-light: #5C5955;
+      --claude-border: #E5E5E0;
+      --claude-message-bg: #FFFFFF;
     }
     
-    /* ===== 整体背景 ===== */
+    /* ===== 整体背景 - 浅米色 ===== */
     body {
-      background-color: var(--claude-bg) !important;
+      background-color: var(--claude-bg-main) !important;
     }
     
-    /* ===== 侧边栏样式 ===== */
-    [class*="sidebar"] {
-      background-color: var(--claude-sidebar) !important;
-      border-right: 1px solid #E5E5E0 !important;
+    /* ===== 主聊天区域背景 ===== */
+    [class*="main"],
+    [class*="chat-area"],
+    main {
+      background-color: var(--claude-bg-main) !important;
     }
     
-    /* ===== 按钮样式 - Claude的圆润风格 ===== */
-    button, [role="button"] {
+    /* ===== 侧边栏 - 纯白 ===== */
+    aside,
+    [class*="sidebar"],
+    nav {
+      background-color: var(--claude-bg-sidebar) !important;
+      border-right: 1px solid var(--claude-border) !important;
+    }
+    
+    /* ===== 所有文字颜色 ===== */
+    body, p, span, div, li, label {
+      color: var(--claude-text) !important;
+    }
+    
+    /* ===== 聊天消息框 - 纯白，无背景色 ===== */
+    [class*="message"],
+    [data-message-role] {
+      background-color: transparent !important;
+      border: none !important;
+      padding: 20px 0 !important;
+    }
+    
+    /* AI 消息 */
+    [class*="assistant"],
+    [data-message-role="assistant"] {
+      background-color: transparent !important;
+    }
+    
+    /* 用户消息 */
+    [class*="user"],
+    [data-message-role="user"] {
+      background-color: transparent !important;
+    }
+    
+    /* ===== 输入框样式 ===== */
+    textarea,
+    input[type="text"] {
+      background-color: white !important;
+      border: 1px solid var(--claude-border) !important;
+      border-radius: 12px !important;
+      color: var(--claude-text) !important;
+      font-size: 15px !important;
+      padding: 14px 16px !important;
+    }
+    
+    textarea:focus,
+    input[type="text"]:focus {
+      border-color: var(--claude-orange) !important;
+      box-shadow: 0 0 0 3px rgba(204, 120, 82, 0.08) !important;
+      outline: none !important;
+    }
+    
+    /* ===== 按钮 - 只有主要按钮用橙色 ===== */
+    button {
       border-radius: 8px !important;
-      transition: all 0.2s ease !important;
+      font-weight: 500 !important;
+      transition: all 0.15s ease !important;
     }
     
-    /* 主要按钮（橙色） */
-    button[data-element-id*="send"], 
-    button[class*="primary"],
-    [class*="button-primary"] {
+    /* 发送按钮 - 橙色 */
+    button[type="submit"],
+    button[class*="send"],
+    button[aria-label*="Send"] {
       background-color: var(--claude-orange) !important;
       color: white !important;
       border: none !important;
     }
     
-    button[data-element-id*="send"]:hover,
-    button[class*="primary"]:hover {
-      background-color: var(--claude-orange-light) !important;
+    button[type="submit"]:hover,
+    button[class*="send"]:hover {
+      background-color: #B86B47 !important;
     }
     
-    /* New Chat 按钮 */
-    [data-element-id="new-chat-button-in-side-bar"] {
+    /* New Chat 按钮 - 保持橙色 */
+    button[class*="new-chat"],
+    [data-element-id*="new-chat"] {
       background-color: var(--claude-orange) !important;
       color: white !important;
-      border-radius: 8px !important;
-      font-weight: 500 !important;
     }
     
-    [data-element-id="new-chat-button-in-side-bar"]:hover {
-      background-color: var(--claude-orange-light) !important;
-      transform: translateY(-1px) !important;
-      box-shadow: 0 4px 12px rgba(204, 120, 82, 0.3) !important;
-    }
-    
-    /* ===== 输入框样式 ===== */
-    textarea, input[type="text"] {
-      border-radius: 12px !important;
-      border: 1px solid #E5E5E0 !important;
-      background-color: white !important;
+    /* 其他普通按钮 - 浅灰色 */
+    button:not([type="submit"]):not([class*="send"]):not([class*="new-chat"]) {
+      background-color: #F5F5F0 !important;
       color: var(--claude-text) !important;
-      padding: 12px 16px !important;
+      border: 1px solid var(--claude-border) !important;
     }
     
-    textarea:focus, input[type="text"]:focus {
-      border-color: var(--claude-orange) !important;
-      box-shadow: 0 0 0 3px rgba(204, 120, 82, 0.1) !important;
-      outline: none !important;
+    button:not([type="submit"]):not([class*="send"]):not([class*="new-chat"]):hover {
+      background-color: #EBEBEB !important;
     }
     
-    /* ===== 聊天消息样式 ===== */
-    [class*="message"] {
-      border-radius: 12px !important;
-      padding: 16px !important;
-      margin-bottom: 12px !important;
+    /* ===== 代码块 ===== */
+    pre {
+      background-color: #F8F8F6 !important;
+      border: 1px solid var(--claude-border) !important;
+      border-radius: 8px !important;
     }
     
-    /* AI消息背景 */
-    [class*="message"][class*="assistant"],
-    [class*="ai-message"] {
-      background-color: #FEFEFE !important;
-      border: 1px solid #F0F0EA !important;
+    code {
+      background-color: #F8F8F6 !important;
+      color: var(--claude-text) !important;
+      padding: 2px 6px !important;
+      border-radius: 4px !important;
     }
     
-    /* 用户消息背景 */
-    [class*="message"][class*="user"],
-    [class*="user-message"] {
-      background-color: #FFF8F5 !important;
-      border: 1px solid #FFE8DD !important;
-    }
-    
-    /* ===== 加载动画 - Claude风格的旋转图标 ===== */
-    [class*="loading"],
-    [class*="spinner"] {
+    /* ===== 链接 ===== */
+    a {
       color: var(--claude-orange) !important;
+      text-decoration: none !important;
     }
     
-    /* ===== 滚动条样式 ===== */
+    a:hover {
+      text-decoration: underline !important;
+    }
+    
+    /* ===== 滚动条 ===== */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
     }
     
     ::-webkit-scrollbar-track {
@@ -121,66 +160,34 @@
     }
     
     ::-webkit-scrollbar-thumb {
-      background: #D5D5D0;
-      border-radius: 4px;
+      background: #D0D0CC;
+      border-radius: 3px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--claude-orange-light);
+      background: #B8B8B4;
     }
     
-    /* ===== 链接颜色 ===== */
-    a {
-      color: var(--claude-orange) !important;
-      text-decoration: none !important;
-    }
-    
-    a:hover {
-      color: var(--claude-orange-dark) !important;
-      text-decoration: underline !important;
-    }
-    
-    /* ===== 选中文本颜色 ===== */
+    /* ===== 选中文本 ===== */
     ::selection {
-      background-color: rgba(204, 120, 82, 0.2) !important;
-      color: var(--claude-text) !important;
+      background-color: rgba(204, 120, 82, 0.15) !important;
     }
     
-    /* ===== 图标颜色 ===== */
-    svg, [class*="icon"] {
-      color: var(--claude-text-light) !important;
+    /* ===== 分隔线 ===== */
+    hr {
+      border-color: var(--claude-border) !important;
     }
     
-    button:hover svg,
-    [role="button"]:hover [class*="icon"] {
-      color: var(--claude-orange) !important;
-    }
-    
-    /* ===== 代码块样式 ===== */
-    pre, code {
-      background-color: #F8F8F6 !important;
-      border-radius: 8px !important;
-      border: 1px solid #E8E8E4 !important;
-    }
-    
-    /* ===== 模型选择器样式 ===== */
-    [class*="model-selector"],
-    select {
-      border-radius: 8px !important;
-      border: 1px solid #E5E5E0 !important;
+    /* ===== 卡片/面板 ===== */
+    [class*="card"],
+    [class*="panel"] {
       background-color: white !important;
-      color: var(--claude-text) !important;
-    }
-    
-    /* ===== 头像/图标圆角 ===== */
-    [class*="avatar"],
-    img[class*="avatar"] {
-      border-radius: 8px !important;
+      border: 1px solid var(--claude-border) !important;
+      border-radius: 12px !important;
     }
   `;
   
-  // 添加样式到页面
   document.head.appendChild(style);
   
-  console.log('✨ Claude-style theme loaded successfully!');
+  console.log('✨ Claude theme loaded (accurate version)');
 })();
