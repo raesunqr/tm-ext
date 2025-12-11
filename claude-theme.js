@@ -85,6 +85,17 @@
     h1, h2, h3, h4, h5, h6, strong, b {
       font-weight: 500 !important;
     }
+
+      /* ===== 文本选中高亮颜色 ===== */
+  ::selection {
+    background-color: #aed0f5 !important;
+    color: #2C2823 !important;
+  }
+  
+  ::-moz-selection {
+    background-color: #aed0f5 !important;
+    color: #2C2823 !important;
+  }
   `;
   
   document.head.appendChild(style);
