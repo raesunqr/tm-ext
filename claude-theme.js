@@ -1,4 +1,4 @@
-// Claude Background + Font + White Input Box
+// Claude Theme - Final Version (Accurate Colors)
 (function() {
   'use strict';
   
@@ -6,13 +6,15 @@
   style.id = 'claude-theme-extension';
   
   style.textContent = `
-    /* 背景色 */
+    /* ===== 背景色 ===== */
+    
+    /* 整体背景 - Claude 官网米色 */
     body {
-      background-color: #F5F5F0 !important;
+      background-color: #FAF9F5 !important;
     }
     
     main, [class*="chat"], [class*="main-content"] {
-      background-color: #F5F5F0 !important;
+      background-color: #FAF9F5 !important;
     }
     
     aside, nav, [class*="sidebar"] {
@@ -21,29 +23,53 @@
     }
     
     [class*="messages"], [class*="conversation"] {
-      background-color: #F5F5F0 !important;
+      background-color: #FAF9F5 !important;
     }
     
-    /* ===== 新增：输入框样式 ===== */
+    /* ===== 消息气泡 ===== */
     
-    /* 输入框容器 - 白色背景 + 边框 */
+    /* 用户消息 - 浅灰色背景 */
+    [class*="message-index"][class*="user"],
+    [data-message-role="user"],
+    div[class*="message"]:has([class*="user"]) {
+      background-color: #F0EEE6 !important;
+      border-radius: 12px !important;
+      border: none !important;
+    }
+    
+    /* AI 消息 - 保持透明 */
+    [class*="message-index"][class*="assistant"],
+    [data-message-role="assistant"] {
+      background-color: transparent !important;
+      border: none !important;
+    }
+    
+    /* ===== 输入框 ===== */
+    
+    /* 输入框容器 - 白色背景 */
     [data-element-id="message-input"] {
       background-color: #FFFFFF !important;
-      border: 1px solid #E5E5E0 !important;
+      border: 1px solid #F7F6F2 !important;
       border-radius: 12px !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+      box-shadow: none !important;
     }
     
-    /* 输入框文本域 */
+    /* 输入框文本域 - 白色 */
     textarea[id*="input"],
     textarea[data-element-id*="textbox"] {
       background-color: #FFFFFF !important;
+      border: none !important;
     }
     
-    /* 输入框 focus 时的效果 */
+    /* 输入框未选中状态 */
+    [data-element-id="message-input"]:not(:focus-within) {
+      border-color: #F7F6F2 !important;
+    }
+    
+    /* 输入框选中/高亮状态 */
     [data-element-id="message-input"]:focus-within {
-      border-color: #CC7852 !important;
-      box-shadow: 0 0 0 3px rgba(204, 120, 82, 0.1) !important;
+      border-color: #F4F3EF !important;
+      box-shadow: none !important;
     }
     
     /* ===== 字体 ===== */
@@ -64,5 +90,5 @@
   
   document.head.appendChild(style);
   
-  console.log('✨ Claude background + font + white input box');
+  console.log('✨ Claude theme - Final version with accurate colors');
 })();
