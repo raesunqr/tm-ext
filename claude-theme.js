@@ -1,4 +1,4 @@
-// Claude Background - 正确版本
+// Claude Background - 精确版本
 (function() {
   'use strict';
   
@@ -11,42 +11,30 @@
       background-color: #F5F5F0 !important;
     }
     
+    /* 主内容区域背景 - 米色 */
+    [data-element-id="main-content-area"],
+    .main-content-area {
+      background-color: #F5F5F0 !important;
+    }
+    
+    /* 对话内容容器 - 白色卡片效果 */
+    .dynamic-chat-content-container {
+      background-color: #FFFFFF !important;
+      border-radius: 16px !important;
+      border: 1px solid #E5E5E0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+      margin: 20px !important;
+    }
+    
     /* 侧边栏 - 白色 */
-    aside,
-    nav,
-    [class*="sidebar"] {
+    [data-element-id="nav-handler"],
+    aside, nav {
       background-color: #FFFFFF !important;
       border-right: 1px solid #E5E5E0 !important;
     }
     
-    /* 主对话区域容器 - 米色 */
-    main {
-      background-color: #F5F5F0 !important;
-    }
-    
-    /* 对话消息容器 - 白色 */
-    [class*="messages"],
-    [class*="conversation"],
-    [class*="chat-container"] {
-      background-color: #FFFFFF !important;
-      border-radius: 12px !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-    }
-    
-    /* 每条消息 - 保持白色背景 */
-    [class*="message"],
-    [data-message-role] {
-      background-color: transparent !important;
-    }
-    
-    /* 输入框区域 - 白色 */
-    [class*="input-container"],
-    [class*="composer"] {
-      background-color: #FFFFFF !important;
-    }
-    
     /* 字体 */
-    *, *::before, *::after {
+    * {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
       letter-spacing: -0.01em !important;
     }
@@ -62,5 +50,5 @@
   
   document.head.appendChild(style);
   
-  console.log('✨ Claude background with white chat area');
+  console.log('✨ Claude theme with accurate selectors');
 })();
