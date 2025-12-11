@@ -1,4 +1,4 @@
-// Claude Theme - Final Version (Fixed User Message)
+// Claude Theme - Final Version (Fixed Text Color)
 (function() {
   'use strict';
   
@@ -27,12 +27,18 @@
     
     /* ===== 消息气泡 ===== */
     
-    /* 用户消息 - 浅灰色背景 */
+    /* 用户消息 - 浅灰色背景 + 深色文字 */
     [data-element-id="user-message"] {
       background-color: #F0EEE6 !important;
       border-radius: 12px !important;
       border: none !important;
       padding: 12px 16px !important;
+      color: #2C2823 !important;
+    }
+    
+    /* 用户消息内的所有文字都改成深色 */
+    [data-element-id="user-message"] * {
+      color: #141413 !important;
     }
     
     /* AI 消息 - 保持透明 */
@@ -83,5 +89,5 @@
   
   document.head.appendChild(style);
   
-  console.log('✨ Claude theme - User message fixed');
+  console.log('✨ Claude theme - Text color fixed');
 })();
